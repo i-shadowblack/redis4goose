@@ -16,6 +16,7 @@ This guide provides comprehensive instructions on how to use the `RedisModel` cl
 4. [Query Operations](#query-operations)
 5. [Count Documents](#count-documents)
 6. [Error Handling](#error-handling)
+7. [Closing the Connection](#closing-the-connection)
 
 ## Installation
 
@@ -38,7 +39,17 @@ const userSchema = {
   email: { type: 'string' }
 };
 
+// Default initialization (uses default Redis connection settings)
 const UserModel = new RedisModel('User', userSchema);
+
+// Initialization with custom Redis options
+const redisOptions = {
+  host: 'your-redis-host',
+  port: 6379,
+  password: 'your-redis-password',
+  // Add other options as needed
+};
+const CustomUserModel = new RedisModel('User', userSchema, redisOptions);
 ```
 
 ## CRUD Operations
@@ -175,6 +186,14 @@ try {
 ```
 
 Remember to handle potential Redis connection errors as well.
+
+## Closing the Connection
+
+When you're done using the RedisModel, it's important to close the connection to free up resources:
+
+```javascript
+await UserModel.close();
+```
 
 ---
 
