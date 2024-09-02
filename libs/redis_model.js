@@ -2,8 +2,8 @@ const Redis = require('ioredis');
 const { v4: uuidv4 } = require('uuid');
 
 class RedisModel {
-    constructor(modelName, schema) {
-        this.client = new Redis();
+    constructor(modelName, schema, redisOptions = {}) {
+        this.client = new Redis(redisOptions);
         this.modelName = modelName;
         this.schema = schema;
     }
@@ -124,6 +124,10 @@ class RedisModel {
             }
             return doc[key] === value;
         });
+    }
+
+    async close() {
+        await this.client.quit();
     }
 }
 
