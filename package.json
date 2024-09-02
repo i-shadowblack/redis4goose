@@ -1,6 +1,6 @@
 {
   "name": "redis4goose",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simulate mongo command on redis",
   "main": "index.js",
   "scripts": {
